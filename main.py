@@ -43,7 +43,8 @@ async def reply_whatsapp(
 
     try:
         # अगर फोटो आई है
-        if NumMedia > 0 and MediaUrl0:
+        if MediaUrl0 and MediaUrl0.strip():
+            
             media_response = requests.get(
                 MediaUrl0, 
                 auth=(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
@@ -53,7 +54,8 @@ async def reply_whatsapp(
             msg.body(ai_output.text)
 
         # अगर सिर्फ मैसेज आया है
-        elif Body.strip():
+        elif Body and Body.strip():
+            
             text_prompt = f"आप 'जन-मित्र AI' हैं। आम नागरिक के इस सवाल का सरल हिंदी में उत्तर दें: {Body}"
             ai_output = model.generate_content(text_prompt)
             msg.body(ai_output.text)
