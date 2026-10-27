@@ -14,12 +14,28 @@ TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "").strip()
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+
+# उपलब्ध मॉडल में से सही मॉडल अपने आप चुनना
+selected_model_name = "gemini-1.5-flash"
+try:
+    available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+    # पहले gemini-1.5-flash या gemini-pro ढूंढें
+    for m in available_models:
+        if "gemini-1.5-flash" in m:
+            selected_model_name = m
+            break
+        elif "gemini-pro" in m:
+            selected_model_name = m
+    else:
+        if available_models:
+            selected_model_name = available_models[0]
+except Exception:
+    pass
+
+model = genai.GenerativeModel(selected_model_name)
 
 PROMPT = """
-model = genai.GenerativeModel("gemini-1.5-flash-8b")
-
-
+आप 'जन-मित्र AI' हैं। 
 इस दस्तावेज़/कागज़ की तस्वीर देखकर एकदम सरल, आम बोलचाल की हिंदी में बताएं:
 1. यह दस्तावेज़ किस बारे में है? (1-2 लाइन)
 2. क्या इसमें कोई भुगतान करना है या पैसा मिलना है?
@@ -30,7 +46,7 @@ model = genai.GenerativeModel("gemini-1.5-flash-8b")
 
 @app.get("/")
 def home():
-    return {"status": "जन-मित्र AI बॉट चालू है!"}
+    return {"status": "जन-मित्र AI बॉट चालू है!", "model": selected_model_name}
 
 @app.post("/whatsapp")
 async def reply_whatsapp(
@@ -60,4 +76,3 @@ async def reply_whatsapp(
         msg.body(f"तकनीकी समस्या: {str(e)}")
 
     return Response(content=str(resp), media_type="application/xml")
-    
