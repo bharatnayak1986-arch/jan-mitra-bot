@@ -15,24 +15,8 @@ TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "").strip()
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
-# उपलब्ध मॉडल में से सही मॉडल अपने आप चुनना
-selected_model_name = "gemini-1.5-flash"
-try:
-    available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-    # पहले gemini-1.5-flash या gemini-pro ढूंढें
-    for m in available_models:
-        if "gemini-1.5-flash" in m:
-            selected_model_name = m
-            break
-        elif "gemini-pro" in m:
-            selected_model_name = m
-    else:
-        if available_models:
-            selected_model_name = available_models[0]
-except Exception:
-    pass
+model = genai.GenerativeModel("gemini-2.5-flash")
 
-model = genai.GenerativeModel(selected_model_name)
 
 PROMPT = """
 आप 'जन-मित्र AI' हैं। 
