@@ -17,8 +17,6 @@ if GEMINI_API_KEY:
 
 model = genai.GenerativeModel("gemini-3.8-flash")
 
-
-
 PROMPT = """
 आप 'जन-मित्र AI' हैं। 
 इस दस्तावेज़/कागज़ की तस्वीर देखकर एकदम सरल, आम बोलचाल की हिंदी में बताएं:
@@ -31,11 +29,8 @@ PROMPT = """
 
 @app.get("/")
 def home():
-
-@app.get("/")
-def home():
     return {"status": "जन-मित्र AI बॉट चालू है!"}
-    
+
 @app.post("/whatsapp")
 async def reply_whatsapp(
     Body: str = Form(default=""),
