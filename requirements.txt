@@ -1,7 +1,6 @@
 fastapi
 uvicorn
 requests
-twilio
-google-generativeai
 pillow
 python-multipart
+google-generativeai>=0.8.3
