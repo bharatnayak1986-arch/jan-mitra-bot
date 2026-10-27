@@ -17,7 +17,8 @@ if GEMINI_API_KEY:
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 PROMPT = """
-आप 'जन-मित्र AI' हैं। 
+model = genai.GenerativeModel("gemini-1.5-flash-latest")
+
 इस दस्तावेज़/कागज़ की तस्वीर देखकर एकदम सरल, आम बोलचाल की हिंदी में बताएं:
 1. यह दस्तावेज़ किस बारे में है? (1-2 लाइन)
 2. क्या इसमें कोई भुगतान करना है या पैसा मिलना है?
