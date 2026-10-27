@@ -31,8 +31,11 @@ PROMPT = """
 
 @app.get("/")
 def home():
-    return {"status": "जन-मित्र AI बॉट चालू है!", "model": selected_model_name}
 
+@app.get("/")
+def home():
+    return {"status": "जन-मित्र AI बॉट चालू है!"}
+    
 @app.post("/whatsapp")
 async def reply_whatsapp(
     Body: str = Form(default=""),
