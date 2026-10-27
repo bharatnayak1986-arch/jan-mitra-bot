@@ -17,7 +17,8 @@ if GEMINI_API_KEY:
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 PROMPT = """
-model = genai.GenerativeModel("gemini-1.5-flash-latest")
+model = genai.GenerativeModel("gemini-1.5-flash-8b")
+
 
 इस दस्तावेज़/कागज़ की तस्वीर देखकर एकदम सरल, आम बोलचाल की हिंदी में बताएं:
 1. यह दस्तावेज़ किस बारे में है? (1-2 लाइन)
